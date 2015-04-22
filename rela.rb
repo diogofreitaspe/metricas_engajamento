@@ -60,8 +60,8 @@ def count_logged_profs
     prof_logaram[namespace] ||= Hash.new
     prof = row['user_id']
     if row['teacher'] == '1' and is_valid_user(prof)
-      prof_logaram[namespace][prof] ||= 0
-      prof_logaram[namespace][prof] += 1
+      prof_logaram[namespace][prof] ||= Set.new
+      prof_logaram[namespace][prof].add(row['day'])
     end
   end
 
@@ -69,8 +69,8 @@ def count_logged_profs
 
   prof_logaram.each do |ns, profs|
     n_prof_logaram[ns] ||= 0
-    profs.each do |prof, n_logins|
-      n_prof_logaram[ns] += 1 if n_logins >= $min_logins
+    profs.each do |prof, logins|
+      n_prof_logaram[ns] += 1 if logins.size >= $min_logins
     end
   end
   n_prof_logaram
