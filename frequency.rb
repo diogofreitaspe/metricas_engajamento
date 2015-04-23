@@ -149,7 +149,7 @@ logins = login_frequency_profs
 productions = producer_frequency_profs
 access = count_teaching_profs
 
-CSV.open("frequency.csv", "wb") do |csv|
+CSV.open("relas/#{Time.now.strftime("%Y%m%d%H%M")}-rela.csv", "wb") do |csv|
   csv << ["namespace", "prof", "n_login", "f_login", "n_content", 'f_content', 'n_access']
   active_profs.each do |ns, profs|
     profs.each do |prof|
